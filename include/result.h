@@ -18,7 +18,6 @@ class alignas(4) Result
      * @brief	
      * @details	
     **/
-
 public:
     Result();
     Result(Status status) : status(status) {}
@@ -33,7 +32,7 @@ public:
 }; /* class: Result */
 
 template<typename T> 
-Result<T>::Result()
+Result<T>::Result() : status(Status::Success())
 {
 
 }

@@ -39,39 +39,4 @@
 
 // }; /* enum: Status */
 
-// constexpr const char * _Status_category[] = 
-// {
-//     "None",
-
-//     "Memory violation",
-//     "Memory lack"
-//     "Memory low",
-
-//     "Resource not created",
-//     "Resource not destroyed",
-
-//     "Driver open",
-//     "Driver close",
-//     "Driver read",
-//     "Driver write",
-//     "Driver timeout",
-//     "Driver busy",
-//     "Driver internal",
-
-//     "Argument invalid",
-//     "Argument range",
-
-//     "Operation ivnalid",
-//     "Operation illegal",
-
-//     "State invalid",
-
-//     "Frame id",
-//     "Frame length",
-//     "Frame payload",
-//     "Frame crc",
-
-//     "Search not found"
-// };
-
 #endif /* define: Status_h */

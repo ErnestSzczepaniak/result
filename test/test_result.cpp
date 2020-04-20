@@ -3,26 +3,31 @@
 
 Result<int> f()
 {
+    Result<int> result;
 
-    return Status::Memory::Unaligned_access("invalid %d", 2);
+    return Status::Memory::Unaligned_access("Not in word boundary");
 }
 
 
+Status s()
+{
+
+    return Status::Driver::Timeout();
+
+    return Status::Driver::Open_error();
+
+    return Status::Memory::Leak();
+
+    return Status::Memory::Unaligned_access("asd %d", 20);
+}
+
 TEST_CASE("rw")
 {
-    auto [status, value] = f();
+    auto status = s();
+
+    printf("Category: [%s], Brief: [%s], Details: [%s]\n", status.category(), status.brief(), status.details());
 
 
-    if (status == true)
-    {
-        int k = 2;
-    }
-    else 
-    {
-        int k = 3;
-    }
-
-    //else printf("Category: [%s], Brief: [%s], Details: [%s]\n", status.category(), status.brief(), status.details());
 }
 
 

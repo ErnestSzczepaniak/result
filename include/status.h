@@ -16,41 +16,49 @@ class Status
      * @brief	
      * @details	
     **/
-   static constexpr auto size_details = 64;
+
+   static constexpr auto size_custom_details = 64;
 
 public:
     Status();
-    Status(const char * category, const char * brief);
+    Status(bool value);
+    Status(const char * category, const char * brief = nullptr, const char * details = nullptr);
     ~Status();
 
     const char * category() const;
     const char * brief() const;
     const char * details() const;
 
-    operator bool();   
-    bool operator==(const Status & other);
+    operator bool() const;   
+    bool operator==(const Status & other) const;
 
+    class Success;
+    class Failure;
     class Memory;
+    class Driver;
+    class Argument;
 
 protected:
     template<typename ...T>
-    void _format(const char * format, T ... ts);
+    void _format_custom_details(const char * format, T ... ts);
 
 private:
     const char * _category;
     const char * _brief;
-    char _details[size_details];
+    const char * _details;
+
+    char _custom_details[size_custom_details];
 
 }; /* class: Status */
 
 template<typename ...T>
-void Status::_format(const char * format, T ... ts)
+void Status::_format_custom_details(const char * format, T ... ts)
 {
-    
+    snprintf(_custom_details, size_custom_details, format, ts...);
 }
 
+#include "status_binary.h"
 #include "status_memory.h"
 #include "status_driver.h"
-
 
 #endif /* define: status_h */

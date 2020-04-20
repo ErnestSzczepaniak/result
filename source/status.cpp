@@ -4,17 +4,28 @@
 Status::Status()
 :
 _category(nullptr),
-_brief(nullptr)
+_brief(nullptr),
+_details(nullptr)
 {
-    _details[0] = 0;
+
 }
 
-Status::Status(const char * category, const char * brief)
+Status::Status(bool value)
+:
+_category(value ? "Success" : "Failure"),
+_brief(nullptr),
+_details(nullptr)
+{
+
+}
+
+Status::Status(const char * category, const char * brief, const char * details)
 :
 _category(category),
-_brief(brief)
+_brief(brief),
+_details(details)
 {
-    _details[0] = 0;
+    
 }
 
 Status::~Status()
@@ -24,20 +35,22 @@ Status::~Status()
 
 const char * Status::category() const
 {
-    return _brief ? _brief : "No category provided";
+    return _category ? _category : "Not provided";
 }
 
 const char * Status::brief() const
 {
-    return _brief ? _brief : "No brief provided";
+    return _brief ? _brief : "Not provided";
 }
 
 const char * Status::details() const
 {
-    return strlen(_details) ? _details : "No details provided";
+    if (_details) return _details;
+    else if (strlen(_custom_details)) return _custom_details;
+    else return "Not provided";
 }
 
-bool Status::operator==(const Status & other)
+bool Status::operator==(const Status & other) const
 {
     return (
         (strcmp(category(), other.category()) == 0) &&
@@ -45,7 +58,7 @@ bool Status::operator==(const Status & other)
         );
 }
 
-Status::operator bool()
+Status::operator bool() const
 {
-    return (_category == nullptr);
+    return ((strcmp(category(), "Success") == 0));
 }
