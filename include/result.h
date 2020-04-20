@@ -1,45 +1,36 @@
 #ifndef _result_h
 #define _result_h
 
-/*
-* project:	result
-* file:		result.h
-* author:	en2
-* date:		18-04-2020
-*/
+/**
+ * @file	result.h
+ * @author	en2
+ * @date	19-04-2020
+ * @brief	
+ * @details	
+**/
 
 #include "status_memory.h"
-#include "status_argument.h"
 #include "status_driver.h"
+#include "status_argument.h"
 
 template<typename T>
-class Result
+class alignas(4) Result
 {
-    /**
-     * @class	Result
-     * @brief	
-     * @details	
-    **/
 public:
-    Result();
     Result(bool value);
     Result(const char * category);
-    Result(Status status);
+    Result(const Status & status);
+
+    Result();
     Result(const Result & other);
     Result(Result && other);
     Result & operator=(const Result & other);
     Result & operator=(Result && other);
     ~Result();
 
-    Status status;
-    T value;
+    [[gnu::aligned(4)]] Status status;
+    [[gnu::aligned(4)]] T value;
 }; /* class: Result */
-
-template<typename T> 
-Result<T>::Result() : status(true)
-{
-
-}
 
 template<typename T> 
 Result<T>::Result(bool value) : status(value)
@@ -52,7 +43,13 @@ Result<T>::Result(const char * category) : status(category)
 
 }
 template<typename T> 
-Result<T>::Result(Status status) : status(status)
+Result<T>::Result(const Status & status) : status(status)
+{
+
+}
+
+template<typename T> 
+Result<T>::Result() : status(true)
 {
 
 }

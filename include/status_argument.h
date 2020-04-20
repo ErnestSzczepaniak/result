@@ -11,52 +11,29 @@
 
 #include "status.h"
 
-/* ---------------------------------------------| Argument |--------------------------------------------- */
-
-class Argument : public Status
+namespace status::argument
 {
-    /**
-     * @class	Status::Argument
-     * @brief	
-     * @details	
-    **/
-public:
-    Argument(const char * brief, const char * details, const Location & location) : Status("Argument", brief, details, location) {}
-    ~Argument() {}
 
-    class Invalid;
-    class Out_of_range;
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-}; /* class: Status::Argument */
-
-/* ---------------------------------------------| Argument::Invalid |--------------------------------------------- */
-
-class Argument::Invalid : public Argument
+class Invalid : public Status
 {
-    /**
-     * @class	Status::Argument::Invalid
-     * @brief	
-     * @details	
-    **/
 public:
-    Invalid(const char * details = nullptr, const Location & location = Location::current())
-        : Argument("Invalid", details, location) {}
+    Invalid(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Invalid", details, location) {}
     ~Invalid() {}
-};
+}; /* Invalid: */
 
-/* ---------------------------------------------| Argument::Out_of_range |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Argument::Out_of_range : public Argument
+class Out_of_range : public Status
 {
-    /**
-     * @class	Status::Argument::Out_of_range
-     * @brief	
-     * @details	
-    **/
 public:
-    Out_of_range(const char * details = nullptr, const Location & location = Location::current())
-        : Argument("Out of range", details, location) {}
+    Out_of_range(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Out_of_range", details, location) {}
     ~Out_of_range() {}
-};
+}; /* Out_of_range: */
+
+}; /* namespace: status::argument */
 
 #endif /* define: status_argument_h */

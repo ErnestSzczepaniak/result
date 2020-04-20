@@ -1,6 +1,5 @@
 #include "test.h"
 #include "result.h"
-#include "status_memory.h"
 
 struct Test
 {
@@ -9,22 +8,26 @@ struct Test
 
 
 
-
 Result<Test> s()
 {
 
-    return Memory::Low();
+    return status::driver::Busy("asdw");
+    return status::memory::Low();
 }
+
+#include "t.h"
 
 TEST_CASE("rw")
 {
     auto [status, value] = s();
 
+    h();
 
-
-    printf("Category: [%s], Brief: [%s], Details: [%s], Message: [%s], Location: [%s (%d) -> %s()]\n", status.category(), status.brief(), status.details(), status.message(), status.file(), status.line(), status.function());
+    printf("Category: [%s], Brief: [%s], Details: [%s], Location: [%s (%d) -> %s()]\n", status.category(), status.brief(), status.details(), status.file(), status.line(), status.function());
 
 
 }
 
 
+    class Invalid;
+    class Out_of_range;

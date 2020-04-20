@@ -11,132 +11,79 @@
 
 #include "status.h"
 
-/* ---------------------------------------------| Driver |--------------------------------------------- */
-
-class Driver : public Status
+namespace status::driver
 {
-    /**
-     * @class	Status::Driver
-     * @brief	
-     * @details	
-    **/
-public:
-    Driver(const char * brief, const char * details, const Location & location) : Status("Driver", brief, details, location) {}
-    ~Driver() {}
 
-    class Open_error;
-    class Close_error;
-    class Read_error;
-    class Write_error;
-    class Timeout;
-    class Failure;
-    class Busy;
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-}; /* class: Driver */
-
-/* ---------------------------------------------| Driver::Open_error |--------------------------------------------- */
-
-class Driver::Open_error : public Driver
+class Open_error : public Status
 {
-    /**
-     * @class	Status::Driver::Open_error
-     * @brief	
-     * @details	
-    **/
 public:
-    Open_error(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Open error", details, location) {}
+    Open_error(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Open_error", details, location) {}
     ~Open_error() {}
-};
+}; /* Open_error:  */
 
-/* ---------------------------------------------| Driver::Close_error |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Driver::Close_error : public Driver
+class Close_error : public Status
 {
-    /**
-     * @class	Status::Driver::Close_error
-     * @brief	
-     * @details	
-    **/
 public:
-    Close_error(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Close error", details, location) {}
+    Close_error(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Close_error", details, location) {}
     ~Close_error() {}
-};
+}; /* Close_error:  */
 
-/* ---------------------------------------------| Driver::Read_error |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Driver::Read_error : public Driver
+class Read_error : public Status
 {
-    /**
-     * @class	Status::Driver::Read_error
-     * @brief	
-     * @details	
-    **/
 public:
-    Read_error(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Read error", details, location) {}
+    Read_error(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Read_error", details, location) {}
     ~Read_error() {}
-};
+}; /* Read_error:  */
 
-/* ---------------------------------------------| Driver::Write_error |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Driver::Write_error : public Driver
+class Write_error : public Status
 {
-    /**
-     * @class	Status::Driver::Write_error
-     * @brief	
-     * @details	
-    **/
 public:
-    Write_error(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Write error", details, location) {}
+    Write_error(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Write_error", details, location) {}
     ~Write_error() {}
-};
+}; /* Close_error:  */
 
-/* ---------------------------------------------| Driver::Timeout |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Driver::Timeout : public Driver
+class Timeout : public Status
 {
-    /**
-     * @class	Status::Driver::Timeout
-     * @brief	
-     * @details	
-    **/
 public:
-    Timeout(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Timeout", details, location) {}
+    Timeout(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Timeout", details, location) {}
     ~Timeout() {}
-};
+}; /* Close_error:  */
 
-/* ---------------------------------------------| Driver::Failure |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Driver::Failure : public Driver
+class Failure : public Status
 {
-    /**
-     * @class	Status::Driver::Failure
-     * @brief	
-     * @details	
-    **/
 public:
-    Failure(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Failure", details, location) {}
+    Failure(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Failure", details, location) {}
     ~Failure() {}
-};
+}; /* Close_error:  */
 
-/* ---------------------------------------------| Driver::Busy |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Driver::Busy : public Driver
+class Busy : public Status
 {
-    /**
-     * @class	Status::Driver::Busy
-     * @brief	
-     * @details	
-    **/
 public:
-    Busy(const char * details = nullptr, const Location & location = Location::current())
-        : Driver("Busy", details, location) {}
+    Busy(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Driver", "Busy", details, location) {}
     ~Busy() {}
-};
+}; /* Close_error:  */
 
-#endif /* define: status_driver_h */
+}; /* namespace: error::driver */
+
+#endif /* define: error_driver_h */

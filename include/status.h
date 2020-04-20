@@ -14,17 +14,11 @@ using Location = std::experimental::source_location;
 
 class Status
 {
-    /**
-     * @class	Status
-     * @brief	
-     * @details	
-    **/
-   static constexpr auto size_message = 64;
+   static constexpr auto size_details = 64;
 
 public:
-    Status();
     Status(bool value, const Location & location = Location::current());
-    Status(const char * category, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
+    Status(const char * category = nullptr, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
     const char * category() const;
@@ -33,10 +27,9 @@ public:
     const char * file() const;
     const char * function() const;
     int line() const;
-    const char * message() const;
 
     template<typename ...T>
-    Status message(const char * format, T ... ts);
+    Status & details(const char * format, T ... ts);
 
     operator bool() const;   
     bool operator==(bool value);
@@ -45,19 +38,17 @@ public:
 private:
     const char * _category;
     const char * _brief;
-    const char * _details;
+    char _details[size_details];
     const char * _file;
     const char * _function;
     int _line;
 
-    char _message[size_message];
-
 }; /* class: Status */
 
 template<typename ...T>
-Status Status::message(const char * format, T ... ts)
+Status & Status::details(const char * format, T ... ts)
 {
-    snprintf(_message, size_message, format, ts ...);
+    snprintf(_details, size_details, format, ts ...);
 
     return *this;
 }

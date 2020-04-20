@@ -4,139 +4,86 @@
 /**
  * @file	status_memory.h
  * @author	en2
- * @date	19-04-2020
+ * @date	20-04-2020
  * @brief	
  * @details	
 **/
 
 #include "status.h"
 
-/* ---------------------------------------------| Memory |--------------------------------------------- */
-
-class Memory : public Status
+namespace status::memory
 {
-    /**
-     * @class	Memory
-     * @brief	
-     * @details	
-    **/
-public:
-    Memory(const char * brief, const char * details, const Location & location) : Status("Memory", brief, details, location) {}
-    ~Memory() {}
 
-    class Unaligned_access;
-    class Invalid_access;
-    class Low;
-    class Not_enought;
-    class Leak;
-    class Corruption;
-    class Overflow;
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-}; /* class: Memory */
-
-/* ---------------------------------------------| Memory::Unaligned access |--------------------------------------------- */
-
-class Memory::Unaligned_access : public Memory
+class Unaligned_access : public Status
 {
-    /**
-     * @class	Memory::Unaligned_access
-     * @brief	
-     * @details	
-    **/
 public:
-    Unaligned_access(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Unaligned access", details, location) {}
+    Unaligned_access(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Unaligned_access", details, location) {}
     ~Unaligned_access() {}
-};
+}; /* Unaligned_access:  */
 
-/* ---------------------------------------------| Memory::Invalid access |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Memory::Invalid_access : public Memory
+class Invalid_access : public Status
 {
-    /**
-     * @class	Memory::Invalid_access
-     * @brief	
-     * @details	
-    **/
 public:
-    Invalid_access(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Invalid access", details, location) {}
+    Invalid_access(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Invalid_access", details, location) {}
     ~Invalid_access() {}
-};
+}; /* Invalid_access:  */
 
-/* ---------------------------------------------| Memory::Low |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Memory::Low : public Memory
+class Low : public Status
 {
-    /**
-     * @class	Memory::Low
-     * @brief	
-     * @details	
-    **/
 public:
-    Low(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Low", details, location) {}
+    Low(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Low", details, location) {}
     ~Low() {}
-};
+}; /* Low:  */
 
-/* ---------------------------------------------| Memory::Not_enought |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Memory::Not_enought : public Memory
+class Not_enought : public Status
 {
-    /**
-     * @class	Memory::Not_enought
-     * @brief	
-     * @details	
-    **/
 public:
-    Not_enought(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Not enought", details, location) {}
+    Not_enought(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Not_enought", details, location) {}
     ~Not_enought() {}
-};
+}; /* Not_enought:  */
 
-/* ---------------------------------------------| Memory::Leak |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Memory::Leak : public Memory
+class Leak : public Status
 {
-    /**
-     * @class	Memory::Leak
-     * @brief	
-     * @details	
-    **/
 public:
-    Leak(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Leak", details, location) {}
+    Leak(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Leak", details, location) {}
     ~Leak() {}
-};
+}; /* Leak:  */
 
-/* ---------------------------------------------| Memory::Corruption |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Memory::Corruption : public Memory
+class Corruption : public Status
 {
-    /**
-     * @class	Memory::Corruption
-     * @brief	
-     * @details	
-    **/
 public:
-    Corruption(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Corruption", details, location) {}
+    Corruption(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Corruption", details, location) {}
     ~Corruption() {}
-};
+}; /* Corruption:  */
 
-/* ---------------------------------------------| Memory::Overflow |--------------------------------------------- */
+/* ---------------------------------------------| info |--------------------------------------------- */
 
-class Memory::Overflow : public Memory
+class Overflow : public Status
 {
-    /**
-     * @class	Memory::Overflow
-     * @brief	
-     * @details	
-    **/
 public:
-    Overflow(const char * details = nullptr, const Location & location = Location::current())
-        : Memory("Overflow", details, location) {}
+    Overflow(const char * details = nullptr, const Location & location = Location::current()) 
+    : Status("Memory", "Overflow", details, location) {}
     ~Overflow() {}
-};
+}; /* Overflow:  */
+
+}; /* namespace: status::memory */
 
 #endif /* define: status_memory_h */
