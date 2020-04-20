@@ -21,7 +21,7 @@ class Status::Driver : public Status
      * @details	
     **/
 public:
-    Driver(const char * brief, const char * details = nullptr) : Status("Driver", brief, details) {}
+    Driver(const char * brief, const char * details, const Location & location) : Status("Driver", brief, details, location) {}
     ~Driver() {}
 
     class Open_error;
@@ -44,8 +44,8 @@ class Status::Driver::Open_error : public Status::Driver
      * @details	
     **/
 public:
-    Open_error(const char * details = nullptr) : Status::Driver("Open error", details) {}
-    template<typename ... T> Open_error(const char * format, T ... ts) : Status::Driver("Open error") {_format_custom_details(format, ts...);}
+    Open_error(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Open error", details, location) {}
     ~Open_error() {}
 };
 
@@ -59,8 +59,8 @@ class Status::Driver::Close_error : public Status::Driver
      * @details	
     **/
 public:
-    Close_error(const char * details = nullptr) : Status::Driver("Close error", details) {}
-    template<typename ... T> Close_error(const char * format, T ... ts) : Status::Driver("Close error") {_format_custom_details(format, ts...);}
+    Close_error(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Close error", details, location) {}
     ~Close_error() {}
 };
 
@@ -69,13 +69,13 @@ public:
 class Status::Driver::Read_error : public Status::Driver
 {
     /**
-     * @class	Status::Driver:Read_error
+     * @class	Status::Driver::Read_error
      * @brief	
      * @details	
     **/
 public:
-    Read_error(const char * details = nullptr) : Status::Driver("Read error", details) {}
-    template<typename ... T> Read_error(const char * format, T ... ts) : Status::Driver("Read error") {_format_custom_details(format, ts...);}
+    Read_error(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Read error", details, location) {}
     ~Read_error() {}
 };
 
@@ -84,13 +84,13 @@ public:
 class Status::Driver::Write_error : public Status::Driver
 {
     /**
-     * @class	Status::Driver:Write_error
+     * @class	Status::Driver::Write_error
      * @brief	
      * @details	
     **/
 public:
-    Write_error(const char * details = nullptr) : Status::Driver("Write error", details) {}
-    template<typename ... T> Write_error(const char * format, T ... ts) : Status::Driver("Write error") {_format_custom_details(format, ts...);}
+    Write_error(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Write error", details, location) {}
     ~Write_error() {}
 };
 
@@ -99,13 +99,13 @@ public:
 class Status::Driver::Timeout : public Status::Driver
 {
     /**
-     * @class	Status::Driver:Timeout
+     * @class	Status::Driver::Timeout
      * @brief	
      * @details	
     **/
 public:
-    Timeout(const char * details = nullptr) : Status::Driver("Timeout", details) {}
-    template<typename ... T> Timeout(const char * format, T ... ts) : Status::Driver("Timeout") {_format_custom_details(format, ts...);}
+    Timeout(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Timeout", details, location) {}
     ~Timeout() {}
 };
 
@@ -114,13 +114,13 @@ public:
 class Status::Driver::Failure : public Status::Driver
 {
     /**
-     * @class	Status::Driver:Failure
+     * @class	Status::Driver::Failure
      * @brief	
      * @details	
     **/
 public:
-    Failure(const char * details = nullptr) : Status::Driver("Failure", details) {}
-    template<typename ... T> Failure(const char * format, T ... ts) : Status::Driver("Failure") {_format_custom_details(format, ts...);}
+    Failure(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Failure", details, location) {}
     ~Failure() {}
 };
 
@@ -129,13 +129,13 @@ public:
 class Status::Driver::Busy : public Status::Driver
 {
     /**
-     * @class	Status::Driver:Busy
+     * @class	Status::Driver::Busy
      * @brief	
      * @details	
     **/
 public:
-    Busy(const char * details = nullptr) : Status::Driver("Busy", details) {}
-    template<typename ... T> Busy(const char * format, T ... ts) : Status::Driver("Busy") {_format_custom_details(format, ts...);}
+    Busy(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Driver("Busy", details, location) {}
     ~Busy() {}
 };
 

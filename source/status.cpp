@@ -5,25 +5,34 @@ Status::Status()
 :
 _category(nullptr),
 _brief(nullptr),
-_details(nullptr)
+_details(nullptr),
+_file(nullptr),
+_function(nullptr),
+_line(0)
 {
 
 }
 
-Status::Status(bool value)
+Status::Status(bool value, const Location & location)
 :
 _category(value ? "Success" : "Failure"),
 _brief(nullptr),
-_details(nullptr)
+_details(nullptr),
+_file(location.file_name()),
+_function(location.function_name()),
+_line(location.line())
 {
 
 }
 
-Status::Status(const char * category, const char * brief, const char * details)
+Status::Status(const char * category, const char * brief, const char * details, const Location & location)
 :
 _category(category),
 _brief(brief),
-_details(details)
+_details(details),
+_file(location.file_name()),
+_function(location.function_name()),
+_line(location.line())
 {
     
 }
@@ -45,9 +54,27 @@ const char * Status::brief() const
 
 const char * Status::details() const
 {
-    if (_details) return _details;
-    else if (strlen(_custom_details)) return _custom_details;
-    else return "Not provided";
+    return _details ? _details : "Not provided";
+}
+
+const char * Status::file() const
+{
+    return _file ? basename(_file) : "Not provided";
+}
+
+const char * Status::function() const
+{
+    return _function ? _function : "Not provided";
+}
+
+int Status::line() const
+{
+    return _line;
+}
+
+const char * Status::message() const
+{
+    return strlen(_message) ? _message : "Not provided";
 }
 
 bool Status::operator==(const Status & other) const

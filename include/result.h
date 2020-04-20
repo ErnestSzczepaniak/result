@@ -20,6 +20,8 @@ class alignas(4) Result
     **/
 public:
     Result();
+    Result(bool value) : status(value) {}
+    Result(const char * category) : status(category) {}
     Result(Status status) : status(status) {}
     Result(const Result & other);
     Result(Result && other);
@@ -32,7 +34,7 @@ public:
 }; /* class: Result */
 
 template<typename T> 
-Result<T>::Result() : status(Status::Success())
+Result<T>::Result() : status(true)
 {
 
 }

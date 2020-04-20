@@ -13,6 +13,7 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "variant": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "source_location": "cpp"
     }
 }

@@ -9,6 +9,9 @@
  * @details	
 **/
 
+#include <experimental/source_location>
+using Location = std::experimental::source_location;
+
 class Status
 {
     /**
@@ -16,48 +19,52 @@ class Status
      * @brief	
      * @details	
     **/
-
-   static constexpr auto size_custom_details = 64;
+   static constexpr auto size_message = 64;
 
 public:
     Status();
-    Status(bool value);
-    Status(const char * category, const char * brief = nullptr, const char * details = nullptr);
+    Status(bool value, const Location & location = Location::current());
+    Status(const char * category, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
     const char * category() const;
     const char * brief() const;
     const char * details() const;
+    const char * file() const;
+    const char * function() const;
+    int line() const;
+    const char * message() const;
+
+    template<typename ...T>
+    Status message(const char * format, T ... ts);
 
     operator bool() const;   
     bool operator==(const Status & other) const;
 
-    class Success;
-    class Failure;
     class Memory;
     class Driver;
     class Argument;
-
-protected:
-    template<typename ...T>
-    void _format_custom_details(const char * format, T ... ts);
 
 private:
     const char * _category;
     const char * _brief;
     const char * _details;
+    const char * _file;
+    const char * _function;
+    int _line;
 
-    char _custom_details[size_custom_details];
+    char _message[size_message];
 
 }; /* class: Status */
 
 template<typename ...T>
-void Status::_format_custom_details(const char * format, T ... ts)
+Status Status::message(const char * format, T ... ts)
 {
-    snprintf(_custom_details, size_custom_details, format, ts...);
+    snprintf(_message, size_message, format, ts ...);
+
+    return *this;
 }
 
-#include "status_binary.h"
 #include "status_memory.h"
 #include "status_driver.h"
 

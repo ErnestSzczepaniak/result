@@ -21,7 +21,7 @@ class Status::Memory : public Status
      * @details	
     **/
 public:
-    Memory(const char * brief, const char * details = nullptr) : Status("Memory", brief, details) {}
+    Memory(const char * brief, const char * details, const Location & location) : Status("Memory", brief, details, location) {}
     ~Memory() {}
 
     class Unaligned_access;
@@ -44,8 +44,8 @@ class Status::Memory::Unaligned_access : public Status::Memory
      * @details	
     **/
 public:
-    Unaligned_access(const char * details = nullptr) : Status::Memory("Unaligned access", details) {}
-    template<typename ... T> Unaligned_access(const char * format, T ... ts) : Status::Memory("Unaligned access") {_format_custom_details(format, ts...);}
+    Unaligned_access(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Unaligned access", details, location) {}
     ~Unaligned_access() {}
 };
 
@@ -59,8 +59,8 @@ class Status::Memory::Invalid_access : public Status::Memory
      * @details	
     **/
 public:
-    Invalid_access(const char * details = nullptr) : Status::Memory("Invalid access", details) {}
-    template<typename ... T> Invalid_access(const char * format, T ... ts) : Status::Memory("Invalid access") {_format_custom_details(format, ts...);}
+    Invalid_access(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Invalid access", details, location) {}
     ~Invalid_access() {}
 };
 
@@ -74,8 +74,8 @@ class Status::Memory::Low : public Status::Memory
      * @details	
     **/
 public:
-    Low(const char * details = nullptr) : Status::Memory("Low", details) {}
-    template<typename ... T> Low(const char * format, T ... ts) : Status::Memory("Low") {_format_custom_details(format, ts...);}
+    Low(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Low", details, location) {}
     ~Low() {}
 };
 
@@ -89,8 +89,8 @@ class Status::Memory::Not_enought : public Status::Memory
      * @details	
     **/
 public:
-    Not_enought(const char * details = nullptr) : Status::Memory("Not enought", details) {}
-    template<typename ... T> Not_enought(const char * format, T ... ts) : Status::Memory("Not enought") {_format_custom_details(format, ts...);}
+    Not_enought(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Not enought", details, location) {}
     ~Not_enought() {}
 };
 
@@ -104,8 +104,8 @@ class Status::Memory::Leak : public Status::Memory
      * @details	
     **/
 public:
-    Leak(const char * details = nullptr) : Status::Memory("Leak", details) {}
-    template<typename ... T> Leak(const char * format, T ... ts) : Status::Memory("Leak") {_format_custom_details(format, ts...);}
+    Leak(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Leak", details, location) {}
     ~Leak() {}
 };
 
@@ -119,8 +119,8 @@ class Status::Memory::Corruption : public Status::Memory
      * @details	
     **/
 public:
-    Corruption(const char * details = nullptr) : Status::Memory("Corruption", details) {}
-    template<typename ... T> Corruption(const char * format, T ... ts) : Status::Memory("Corruption") {_format_custom_details(format, ts...);}
+    Corruption(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Corruption", details, location) {}
     ~Corruption() {}
 };
 
@@ -134,8 +134,8 @@ class Status::Memory::Overflow : public Status::Memory
      * @details	
     **/
 public:
-    Overflow(const char * details = nullptr) : Status::Memory("Overflow", details) {}
-    template<typename ... T> Overflow(const char * format, T ... ts) : Status::Memory("Overflow") {_format_custom_details(format, ts...);}
+    Overflow(const char * details = nullptr, const Location & location = Location::current())
+        : Status::Memory("Overflow", details, location) {}
     ~Overflow() {}
 };
 
