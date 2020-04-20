@@ -22,9 +22,9 @@ class Result
     **/
 public:
     Result();
-    Result(bool value) : status(value) {}
-    Result(const char * category) : status(category) {}
-    Result(Status status) : status(status) {}
+    Result(bool value);
+    Result(const char * category);
+    Result(Status status);
     Result(const Result & other);
     Result(Result && other);
     Result & operator=(const Result & other);
@@ -37,6 +37,22 @@ public:
 
 template<typename T> 
 Result<T>::Result() : status(true)
+{
+
+}
+
+template<typename T> 
+Result<T>::Result(bool value) : status(value)
+{
+
+}
+template<typename T> 
+Result<T>::Result(const char * category) : status(category)
+{
+
+}
+template<typename T> 
+Result<T>::Result(Status status) : status(status)
 {
 
 }
