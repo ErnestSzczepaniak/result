@@ -13,10 +13,10 @@
 
 /* ---------------------------------------------| Memory |--------------------------------------------- */
 
-class Status::Memory : public Status
+class Memory : public Status
 {
     /**
-     * @class	Status::Memory
+     * @class	Memory
      * @brief	
      * @details	
     **/
@@ -32,110 +32,110 @@ public:
     class Corruption;
     class Overflow;
 
-}; /* class: Status::Memory */
+}; /* class: Memory */
 
 /* ---------------------------------------------| Memory::Unaligned access |--------------------------------------------- */
 
-class Status::Memory::Unaligned_access : public Status::Memory
+class Memory::Unaligned_access : public Memory
 {
     /**
-     * @class	Status::Memory::Unaligned_access
+     * @class	Memory::Unaligned_access
      * @brief	
      * @details	
     **/
 public:
     Unaligned_access(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Unaligned access", details, location) {}
+        : Memory("Unaligned access", details, location) {}
     ~Unaligned_access() {}
 };
 
 /* ---------------------------------------------| Memory::Invalid access |--------------------------------------------- */
 
-class Status::Memory::Invalid_access : public Status::Memory
+class Memory::Invalid_access : public Memory
 {
     /**
-     * @class	Status::Memory::Invalid_access
+     * @class	Memory::Invalid_access
      * @brief	
      * @details	
     **/
 public:
     Invalid_access(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Invalid access", details, location) {}
+        : Memory("Invalid access", details, location) {}
     ~Invalid_access() {}
 };
 
 /* ---------------------------------------------| Memory::Low |--------------------------------------------- */
 
-class Status::Memory::Low : public Status::Memory
+class Memory::Low : public Memory
 {
     /**
-     * @class	Status::Memory::Low
+     * @class	Memory::Low
      * @brief	
      * @details	
     **/
 public:
     Low(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Low", details, location) {}
+        : Memory("Low", details, location) {}
     ~Low() {}
 };
 
 /* ---------------------------------------------| Memory::Not_enought |--------------------------------------------- */
 
-class Status::Memory::Not_enought : public Status::Memory
+class Memory::Not_enought : public Memory
 {
     /**
-     * @class	Status::Memory::Not_enought
+     * @class	Memory::Not_enought
      * @brief	
      * @details	
     **/
 public:
     Not_enought(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Not enought", details, location) {}
+        : Memory("Not enought", details, location) {}
     ~Not_enought() {}
 };
 
 /* ---------------------------------------------| Memory::Leak |--------------------------------------------- */
 
-class Status::Memory::Leak : public Status::Memory
+class Memory::Leak : public Memory
 {
     /**
-     * @class	Status::Memory::Leak
+     * @class	Memory::Leak
      * @brief	
      * @details	
     **/
 public:
     Leak(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Leak", details, location) {}
+        : Memory("Leak", details, location) {}
     ~Leak() {}
 };
 
 /* ---------------------------------------------| Memory::Corruption |--------------------------------------------- */
 
-class Status::Memory::Corruption : public Status::Memory
+class Memory::Corruption : public Memory
 {
     /**
-     * @class	Status::Memory::Corruption
+     * @class	Memory::Corruption
      * @brief	
      * @details	
     **/
 public:
     Corruption(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Corruption", details, location) {}
+        : Memory("Corruption", details, location) {}
     ~Corruption() {}
 };
 
 /* ---------------------------------------------| Memory::Overflow |--------------------------------------------- */
 
-class Status::Memory::Overflow : public Status::Memory
+class Memory::Overflow : public Memory
 {
     /**
-     * @class	Status::Memory::Overflow
+     * @class	Memory::Overflow
      * @brief	
      * @details	
     **/
 public:
     Overflow(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Memory("Overflow", details, location) {}
+        : Memory("Overflow", details, location) {}
     ~Overflow() {}
 };
 

@@ -3,7 +3,7 @@
 
 Status::Status()
 :
-_category(nullptr),
+_category("Success"),
 _brief(nullptr),
 _details(nullptr),
 _file(nullptr),
@@ -77,15 +77,20 @@ const char * Status::message() const
     return strlen(_message) ? _message : "Not provided";
 }
 
+Status::operator bool() const
+{
+    return ((strcmp(category(), "Success") == 0));
+}
+
+bool Status::operator==(bool value)
+{
+    return value ? ((strcmp(category(), "Success") == 0)) : false;
+}
+
 bool Status::operator==(const Status & other) const
 {
     return (
         (strcmp(category(), other.category()) == 0) &&
         (strcmp(brief(), other.brief()) == 0)
         );
-}
-
-Status::operator bool() const
-{
-    return ((strcmp(category(), "Success") == 0));
 }

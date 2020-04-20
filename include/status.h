@@ -39,11 +39,8 @@ public:
     Status message(const char * format, T ... ts);
 
     operator bool() const;   
+    bool operator==(bool value);
     bool operator==(const Status & other) const;
-
-    class Memory;
-    class Driver;
-    class Argument;
 
 private:
     const char * _category;
@@ -64,8 +61,5 @@ Status Status::message(const char * format, T ... ts)
 
     return *this;
 }
-
-#include "status_memory.h"
-#include "status_driver.h"
 
 #endif /* define: status_h */

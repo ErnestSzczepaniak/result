@@ -13,7 +13,7 @@
 
 /* ---------------------------------------------| Argument |--------------------------------------------- */
 
-class Status::Argument : public Status
+class Argument : public Status
 {
     /**
      * @class	Status::Argument
@@ -31,7 +31,7 @@ public:
 
 /* ---------------------------------------------| Argument::Invalid |--------------------------------------------- */
 
-class Status::Argument::Invalid : public Status::Argument
+class Argument::Invalid : public Argument
 {
     /**
      * @class	Status::Argument::Invalid
@@ -40,13 +40,13 @@ class Status::Argument::Invalid : public Status::Argument
     **/
 public:
     Invalid(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Argument("Invalid", details, location) {}
+        : Argument("Invalid", details, location) {}
     ~Invalid() {}
 };
 
 /* ---------------------------------------------| Argument::Out_of_range |--------------------------------------------- */
 
-class Status::Argument::Out_of_range : public Status::Argument
+class Argument::Out_of_range : public Argument
 {
     /**
      * @class	Status::Argument::Out_of_range
@@ -55,7 +55,7 @@ class Status::Argument::Out_of_range : public Status::Argument
     **/
 public:
     Out_of_range(const char * details = nullptr, const Location & location = Location::current())
-        : Status::Argument("Out of range", details, location) {}
+        : Argument("Out of range", details, location) {}
     ~Out_of_range() {}
 };
 

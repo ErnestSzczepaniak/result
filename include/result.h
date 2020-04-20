@@ -8,10 +8,12 @@
 * date:		18-04-2020
 */
 
-#include "status.h"
+#include "status_memory.h"
+#include "status_argument.h"
+#include "status_driver.h"
 
 template<typename T>
-class alignas(4) Result
+class Result
 {
     /**
      * @class	Result
@@ -29,8 +31,8 @@ public:
     Result & operator=(Result && other);
     ~Result();
 
-    [[gnu::aligned(4)]] Status status;
-    [[gnu::aligned(4)]] T value;
+    Status status;
+    T value;
 }; /* class: Result */
 
 template<typename T> 
@@ -54,7 +56,7 @@ Result<T>::Result(Result<T> && other) : status(other.status), value(other.value)
 template<typename T> 
 Result<T>::~Result()
 {
-
+    
 }
 
 template<typename T> 
