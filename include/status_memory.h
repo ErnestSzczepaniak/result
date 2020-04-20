@@ -14,75 +14,13 @@
 namespace status::memory
 {
 
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Unaligned_access : public Status
-{
-public:
-    Unaligned_access(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Unaligned_access", details, location) {}
-    ~Unaligned_access() {}
-}; /* Unaligned_access:  */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Invalid_access : public Status
-{
-public:
-    Invalid_access(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Invalid_access", details, location) {}
-    ~Invalid_access() {}
-}; /* Invalid_access:  */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Low : public Status
-{
-public:
-    Low(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Low", details, location) {}
-    ~Low() {}
-}; /* Low:  */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Not_enought : public Status
-{
-public:
-    Not_enought(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Not_enought", details, location) {}
-    ~Not_enought() {}
-}; /* Not_enought:  */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Leak : public Status
-{
-public:
-    Leak(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Leak", details, location) {}
-    ~Leak() {}
-}; /* Leak:  */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Corruption : public Status
-{
-public:
-    Corruption(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Corruption", details, location) {}
-    ~Corruption() {}
-}; /* Corruption:  */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Overflow : public Status
-{
-public:
-    Overflow(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Memory", "Overflow", details, location) {}
-    ~Overflow() {}
-}; /* Overflow:  */
+status_class(Memory, Access_violation);
+status_class(Memory, Alignment_violation);
+status_class(Memory, Low);
+status_class(Memory, Not_enought);
+status_class(Memory, Leak);
+status_class(Memory, Corruption);
+status_class(Memory, Overflow);
 
 }; /* namespace: status::memory */
 

@@ -11,6 +11,7 @@ struct Test
 Result<Test> s()
 {
 
+    return status::memory::Leak();
     return status::driver::Busy("asdw");
     return status::memory::Low();
 }

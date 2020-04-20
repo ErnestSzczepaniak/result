@@ -14,25 +14,11 @@
 namespace status::argument
 {
 
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Invalid : public Status
-{
-public:
-    Invalid(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Driver", "Invalid", details, location) {}
-    ~Invalid() {}
-}; /* Invalid: */
-
-/* ---------------------------------------------| info |--------------------------------------------- */
-
-class Out_of_range : public Status
-{
-public:
-    Out_of_range(const char * details = nullptr, const Location & location = Location::current()) 
-    : Status("Driver", "Out_of_range", details, location) {}
-    ~Out_of_range() {}
-}; /* Out_of_range: */
+status_class(Argument, Size_mismatch);
+status_class(Argument, Type_mismatch);
+status_class(Argument, Address_unaligned);
+status_class(Argument, Address_empty);
+status_class(Argument, Out_of_range);
 
 }; /* namespace: status::argument */
 

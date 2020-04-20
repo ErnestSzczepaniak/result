@@ -10,11 +10,12 @@
 **/
 
 #include <experimental/source_location>
+
 using Location = std::experimental::source_location;
 
 class Status
 {
-   static constexpr auto size_details = 64;
+    static constexpr auto size_details = 64;
 
 public:
     Status(bool value, const Location & location = Location::current());
@@ -51,6 +52,17 @@ Status & Status::details(const char * format, T ... ts)
     snprintf(_details, size_details, format, ts ...);
 
     return *this;
+}
+
+/* ---------------------------------------------| info |--------------------------------------------- */
+
+#define STRING(x) #x
+#define status_class(CATEGORY, BRIEF) class BRIEF : public Status                           \
+{                                                                                           \
+public:                                                                                     \
+    BRIEF(const char * details = nullptr, const Location & location = Location::current())  \
+    : Status(STRING(CATEGORY), STRING(BRIEF), details, location) {}                         \
+    ~BRIEF() {}                                                                             \
 }
 
 #endif /* define: status_h */
