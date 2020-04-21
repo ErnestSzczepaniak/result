@@ -6,9 +6,7 @@ Status::Status(bool value, const Location & location)
 :
 _category(value ? "Success" : "Failure"),
 _brief(nullptr),
-_file(location.file_name()),
-_function(location.function_name()),
-_line(location.line())
+_location(location)
 {
     _details[0] = 0;
 }
@@ -17,9 +15,7 @@ Status::Status(const char * category, const char * brief, const char * details, 
 :
 _category(category),
 _brief(brief),
-_file(location.file_name()),
-_function(location.function_name()),
-_line(location.line())
+_location(location)
 {
     if (details) snprintf(_details, size_details, "%s", details);
 }
@@ -46,17 +42,17 @@ const char * Status::details() const
 
 const char * Status::file() const
 {
-    return basename(_file);
+    return basename(_location.file_name());
 }
 
 const char * Status::function() const
 {
-    return _function;
+    return _location.function_name();
 }
 
 int Status::line() const
 {
-    return _line;
+    return _location.line();
 }
 
 Status::operator bool() const

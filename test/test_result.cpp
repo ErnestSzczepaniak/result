@@ -1,5 +1,5 @@
 #include "test.h"
-#include "single_header.h"
+#include "result.h"
 
 struct Test
 {

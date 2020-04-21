@@ -40,9 +40,8 @@ private:
     const char * _category;
     const char * _brief;
     char _details[size_details];
-    const char * _file;
-    const char * _function;
-    int _line;
+    
+    const Location & _location;
 
 }; /* class: Status */
 
