@@ -1,5 +1,13 @@
-#ifndef _status_h
-#define _status_h
+#ifndef _single_header_h
+#define _single_header_h
+
+/**
+ * @file	single_header.h
+ * @author	en2
+ * @date	21-04-2020
+ * @brief	
+ * @details	
+**/
 
 /**
  * @file	status.h
@@ -109,4 +117,81 @@ status_class(Argument, Out_of_range);
 
 }; /* namespace: status::argument */
 
-#endif /* define: status_h */
+template<typename T>
+class alignas(4) Result
+{
+public:
+    Result(bool value);
+    Result(const char * category);
+    Result(const Status & status);
+
+    Result();
+    Result(const Result & other);
+    Result(Result && other);
+    Result & operator=(const Result & other);
+    Result & operator=(Result && other);
+    ~Result();
+
+    [[gnu::aligned(4)]] Status status;
+    [[gnu::aligned(4)]] T value;
+}; /* class: Result */
+
+template<typename T> 
+Result<T>::Result(bool value) : status(value)
+{
+
+}
+template<typename T> 
+Result<T>::Result(const char * category) : status(category)
+{
+
+}
+template<typename T> 
+Result<T>::Result(const Status & status) : status(status)
+{
+
+}
+
+template<typename T> 
+Result<T>::Result() : status(true)
+{
+
+}
+
+template<typename T> 
+Result<T>::Result(const Result<T> & other) : status(other.status), value(other.value)
+{
+
+}
+
+template<typename T> 
+Result<T>::Result(Result<T> && other) : status(other.status), value(other.value)
+{
+
+}
+
+template<typename T> 
+Result<T>::~Result()
+{
+    
+}
+
+template<typename T> 
+Result<T> & Result<T>::operator=(const Result<T> & other)
+{
+    status = other.status;
+    value = other.value;
+
+    return *this;
+}
+
+template<typename T> 
+Result<T> & Result<T>::operator=(Result<T> && other)
+{
+    status = other.status;
+    value = other.value;
+
+    return *this;
+}
+
+#endif /* define: single_header_h */

@@ -1,5 +1,6 @@
 #include "status.h"
 #include "string.h"
+#include "stdio.h"
 
 Status::Status(bool value, const Location & location)
 :
@@ -20,7 +21,7 @@ _file(location.file_name()),
 _function(location.function_name()),
 _line(location.line())
 {
-    if (details) memcpy(_details, details, strlen(details));
+    if (details) snprintf(_details, size_details, "%s", details);
 }
 
 Status::~Status()

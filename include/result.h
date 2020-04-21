@@ -9,9 +9,7 @@
  * @details	
 **/
 
-#include "status_memory.h"
-#include "status_driver.h"
-#include "status_argument.h"
+#include "status.h"
 
 template<typename T>
 class alignas(4) Result
