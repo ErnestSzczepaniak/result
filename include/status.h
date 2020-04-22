@@ -108,4 +108,15 @@ status_class(Argument, Out_of_range);
 
 }; /* namespace: status::argument */
 
+namespace error::frame
+{
+
+status_class(Frame, Id_mismatch);
+status_class(Frame, Id_unknown);
+status_class(Frame, Length_mismatch);
+status_class(Frame, Crc_mismatch);
+
+}; /* namespace: error::frame */
+
+
 #endif /* define: status_h */
