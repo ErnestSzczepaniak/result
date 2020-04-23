@@ -15,7 +15,8 @@ using Location = std::experimental::source_location;
 
 enum class Status_type : unsigned char 
 {
-    BINARY,
+    STATUS,
+    CUSTOM,
     WARNING,
     ERROR
 }; /* enum: Status_type */
@@ -26,6 +27,7 @@ class Status
 
 public:
     Status(bool value, const Location & location = Location::current());
+    Status(const char * category, const Location & location = Location::current());
     Status(Status_type type, const char * category = nullptr, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
@@ -40,17 +42,18 @@ public:
     template<typename ...T>
     Status & details(const char * format, T ... ts);
 
-    //operator bool() const;    // !: przez konwersje operatory porownywania nie wiedza co wybrac
     bool operator==(bool value);
     bool operator==(const Status & other) const;
+    bool operator!=(const Status & other) const;
 
 private:
     Status_type _type;
     const char * _category;
     const char * _brief;
     char _details[size_details];
-    
-    const Location & _location;
+    const char * _file;
+    const char * _function;
+    int _line;
 
 }; /* class: Status */
 
@@ -89,8 +92,8 @@ public:                                                                         
 namespace status
 {
 
-_l0_class(Status_type::BINARY, Success);
-_l0_class(Status_type::BINARY, Failure);
+_l0_class(Status_type::STATUS, Success);
+_l0_class(Status_type::STATUS, Failure);
 
 }; /* namespace: status */
 
