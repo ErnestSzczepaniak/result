@@ -4,6 +4,7 @@
 
 Status::Status(bool value, const Location & location)
 :
+_type(Status_type::BINARY),
 _category(value ? "Success" : "Failure"),
 _brief(nullptr),
 _location(location)
@@ -11,8 +12,9 @@ _location(location)
     _details[0] = 0;
 }
 
-Status::Status(const char * category, const char * brief, const char * details, const Location & location)
+Status::Status(Status_type type, const char * category, const char * brief, const char * details, const Location & location)
 :
+_type(type),
 _category(category),
 _brief(brief),
 _location(location)
@@ -25,9 +27,17 @@ Status::~Status()
 
 }
 
+const char * Status::type() const
+{
+    if (_type == Status_type::BINARY) return "Binary";
+    else if (_type == Status_type::WARNING) return "Warning";
+    else if (_type == Status_type::ERROR) return "Error";
+    return "Unknown";
+}
+
 const char * Status::category() const
 {
-    return _category;
+    return _category ? _category : "Not provided";
 }
 
 const char * Status::brief() const
@@ -55,20 +65,29 @@ int Status::line() const
     return _location.line();
 }
 
-Status::operator bool() const
-{
-    return (strcmp(_category, "Success") == 0);
-}
+// Status::operator bool() const
+// {
+//     return (strcmp(_category, "Success") == 0);
+// }
 
 bool Status::operator==(bool value)
 {
-    return value ? (strcmp(_category, "Success") == 0) : (strcmp(_category, "Success") != 0);
+    if (_type == Status_type::BINARY)
+    {
+        return value ? (strcmp(_category, "Success") == 0) : (strcmp(_category, "Success") != 0);
+    }
+    else if (_type == Status_type::WARNING) return value;
+    else return !value;  
 }
 
 bool Status::operator==(const Status & other) const
 {
-    return (
-        (strcmp(_category, other._category) == 0) &&
-        (strcmp(brief(), other.brief()) == 0)
+    if (_type == other._type)
+    {
+        return (
+            (strcmp(category(), other.category()) == 0) &&
+            (strcmp(brief(), other.brief()) == 0)
         );
+    }
+    else return false;
 }

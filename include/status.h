@@ -13,15 +13,23 @@
 
 using Location = std::experimental::source_location;
 
+enum class Status_type : unsigned char 
+{
+    BINARY,
+    WARNING,
+    ERROR
+}; /* enum: Status_type */
+
 class Status
 {
     static constexpr auto size_details = 64;
 
 public:
     Status(bool value, const Location & location = Location::current());
-    Status(const char * category = nullptr, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
+    Status(Status_type type, const char * category = nullptr, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
+    const char * type() const;
     const char * category() const;
     const char * brief() const;
     const char * details() const;
@@ -32,11 +40,12 @@ public:
     template<typename ...T>
     Status & details(const char * format, T ... ts);
 
-    operator bool() const;   
+    //operator bool() const;    // !: przez konwersje operatory porownywania nie wiedza co wybrac
     bool operator==(bool value);
     bool operator==(const Status & other) const;
 
 private:
+    Status_type _type;
     const char * _category;
     const char * _brief;
     char _details[size_details];
@@ -56,67 +65,94 @@ Status & Status::details(const char * format, T ... ts)
 /* ---------------------------------------------| info |--------------------------------------------- */
 
 #define STRING(x) #x
-#define status_class(CATEGORY, BRIEF) class BRIEF : public Status                                       \
-{                                                                                                       \
-public:                                                                                                 \
-    BRIEF(const char * details = nullptr, const Location & location = Location::current())              \
-    : Status(STRING(CATEGORY), STRING(BRIEF), details, location) {}                                     \
-    ~BRIEF() {}                                                                                         \
+#define _l0_class(TYPE, CATEGORY) class CATEGORY : public Status                                       \
+{                                                                                                      \
+public:                                                                                                \
+    CATEGORY(const char * details = nullptr, const Location & location = Location::current())          \
+    : Status(TYPE, STRING(CATEGORY), nullptr, details, location) {}                                    \
+    ~CATEGORY() {}                                                                                     \
+}
+
+
+/* ---------------------------------------------| info |--------------------------------------------- */
+
+#define _l1_class(TYPE, CATEGORY, BRIEF) class BRIEF : public Status                                   \
+{                                                                                                      \
+public:                                                                                                \
+    BRIEF(const char * details = nullptr, const Location & location = Location::current())             \
+    : Status(TYPE, STRING(CATEGORY), STRING(BRIEF), details, location) {}                              \
+    ~BRIEF() {}                                                                                        \
 }
 
 /* ---------------------------------------------| info |--------------------------------------------- */
 
+namespace status
+{
+
+_l0_class(Status_type::BINARY, Success);
+_l0_class(Status_type::BINARY, Failure);
+
+}; /* namespace: status */
+
+
+namespace warning::value
+{
+
+_l1_class(Status_type::WARNING, Value, Empty);
+
+}; /* namespace: warning::return */
+
+
 namespace error::memory
 {
 
-status_class(Memory, Access_violation);
-status_class(Memory, Alignment_violation);
-status_class(Memory, Low);
-status_class(Memory, Not_enought);
-status_class(Memory, Leak);
-status_class(Memory, Corruption);
-status_class(Memory, Overflow);
+_l1_class(Status_type::ERROR, Memory, Access_violation);
+_l1_class(Status_type::ERROR, Memory, Alignment_violation);
+_l1_class(Status_type::ERROR, Memory, Low);
+_l1_class(Status_type::ERROR, Memory, Not_enought);
+_l1_class(Status_type::ERROR, Memory, Leak);
+_l1_class(Status_type::ERROR, Memory, Corruption);
+_l1_class(Status_type::ERROR, Memory, Overflow);
 
 }; /* namespace: status::memory */
 
 namespace error::driver
 {
 
-status_class(Driver, Open);
-status_class(Driver, Close);
-status_class(Driver, Write);
-status_class(Driver, Read);
-status_class(Driver, Timeout);
-status_class(Driver, Failure);
-status_class(Driver, Busy);
-status_class(Driver, Bad_configuration);
-status_class(Driver, Restart_needed);
-status_class(Driver, Not_present);
-status_class(Driver, Not_responding);
-status_class(Driver, Hardware_fault);
+_l1_class(Status_type::ERROR, Driver, Open);
+_l1_class(Status_type::ERROR, Driver, Close);
+_l1_class(Status_type::ERROR, Driver, Write);
+_l1_class(Status_type::ERROR, Driver, Read);
+_l1_class(Status_type::ERROR, Driver, Timeout);
+_l1_class(Status_type::ERROR, Driver, Failure);
+_l1_class(Status_type::ERROR, Driver, Busy);
+_l1_class(Status_type::ERROR, Driver, Bad_configuration);
+_l1_class(Status_type::ERROR, Driver, Restart_needed);
+_l1_class(Status_type::ERROR, Driver, Not_present);
+_l1_class(Status_type::ERROR, Driver, Not_responding);
+_l1_class(Status_type::ERROR, Driver, Hardware_fault);
 
 }; /* namespace: error::driver */
 
 namespace error::argument
 {
 
-status_class(Argument, Size_mismatch);
-status_class(Argument, Type_mismatch);
-status_class(Argument, Address_unaligned);
-status_class(Argument, Address_empty);
-status_class(Argument, Out_of_range);
+_l1_class(Status_type::ERROR, Argument, Size_mismatch);
+_l1_class(Status_type::ERROR, Argument, Type_mismatch);
+_l1_class(Status_type::ERROR, Argument, Address_unaligned);
+_l1_class(Status_type::ERROR, Argument, Address_empty);
+_l1_class(Status_type::ERROR, Argument, Out_of_range);
 
-}; /* namespace: status::argument */
+}; /* namespace: error::argument */
 
 namespace error::frame
 {
 
-status_class(Frame, Id_mismatch);
-status_class(Frame, Id_unknown);
-status_class(Frame, Length_mismatch);
-status_class(Frame, Crc_mismatch);
+_l1_class(Status_type::ERROR, Frame, Id_mismatch);
+_l1_class(Status_type::ERROR, Frame, Id_unknown);
+_l1_class(Status_type::ERROR, Frame, Length_mismatch);
+_l1_class(Status_type::ERROR, Frame, Crc_mismatch);
 
 }; /* namespace: error::frame */
-
 
 #endif /* define: status_h */
