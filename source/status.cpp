@@ -4,10 +4,24 @@
 
 Status::Status(bool value, const Location & location)
 :
-_type(Status_type::BINARY),
+_type(Status_type::STATUS),
 _category(value ? "Success" : "Failure"),
 _brief(nullptr),
-_location(location)
+_file(basename(location.file_name())),
+_function(location.function_name()),
+_line(location.line())
+{
+    _details[0] = 0;
+}
+
+Status::Status(const char * category, const Location & location)
+:
+_type(Status_type::CUSTOM),
+_category(category),
+_brief(nullptr),
+_file(basename(location.file_name())),
+_function(location.function_name()),
+_line(location.line())
 {
     _details[0] = 0;
 }
@@ -17,7 +31,9 @@ Status::Status(Status_type type, const char * category, const char * brief, cons
 _type(type),
 _category(category),
 _brief(brief),
-_location(location)
+_file(basename(location.file_name())),
+_function(location.function_name()),
+_line(location.line())
 {
     if (details) snprintf(_details, size_details, "%s", details);
 }
@@ -29,7 +45,8 @@ Status::~Status()
 
 const char * Status::type() const
 {
-    if (_type == Status_type::BINARY) return "Binary";
+    if (_type == Status_type::STATUS) return "Binary";
+    else if (_type == Status_type::CUSTOM) return "Custom";
     else if (_type == Status_type::WARNING) return "Warning";
     else if (_type == Status_type::ERROR) return "Error";
     return "Unknown";
@@ -52,30 +69,26 @@ const char * Status::details() const
 
 const char * Status::file() const
 {
-    return basename(_location.file_name());
+    return _file;
 }
 
 const char * Status::function() const
 {
-    return _location.function_name();
+    return _function;
 }
 
 int Status::line() const
 {
-    return _location.line();
+    return _line;
 }
-
-// Status::operator bool() const
-// {
-//     return (strcmp(_category, "Success") == 0);
-// }
 
 bool Status::operator==(bool value)
 {
-    if (_type == Status_type::BINARY)
+    if (_type == Status_type::STATUS)
     {
         return value ? (strcmp(_category, "Success") == 0) : (strcmp(_category, "Success") != 0);
     }
+    else if (_type == Status_type::CUSTOM) return !value;
     else if (_type == Status_type::WARNING) return value;
     else return !value;  
 }
@@ -90,4 +103,9 @@ bool Status::operator==(const Status & other) const
         );
     }
     else return false;
+}
+
+bool Status::operator!=(const Status & other) const
+{
+    return !this->operator==(other);
 }

@@ -9,6 +9,8 @@ struct Test
 Result<Test> s()
 {
 
+    return "Pizdeczka";
+    
     return status::Failure();
     return warning::value::Empty();
     return error::argument::Address_empty();      
