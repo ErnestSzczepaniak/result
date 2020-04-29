@@ -7,7 +7,7 @@ Status::Status(bool value, const Location & location)
 _type(Status_type::STATUS),
 _category(value ? "Success" : "Failure"),
 _brief(nullptr),
-_file(basename(location.file_name())),
+_file(location.file_name()),
 _function(location.function_name()),
 _line(location.line())
 {
@@ -19,7 +19,7 @@ Status::Status(const char * category, const Location & location)
 _type(Status_type::CUSTOM),
 _category(category),
 _brief(nullptr),
-_file(basename(location.file_name())),
+_file(location.file_name()),
 _function(location.function_name()),
 _line(location.line())
 {
@@ -31,7 +31,7 @@ Status::Status(Status_type type, const char * category, const char * brief, cons
 _type(type),
 _category(category),
 _brief(brief),
-_file(basename(location.file_name())),
+_file(location.file_name()),
 _function(location.function_name()),
 _line(location.line())
 {
