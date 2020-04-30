@@ -9,9 +9,7 @@ struct Test
 Result<Test> s()
 {
 
-    return "Pizdeczka";
-    
-    return status::binary::Failure();
+    //return status::binary::Failure();
     return status::warning::possible::Data_loss();
 }
 

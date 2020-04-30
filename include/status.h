@@ -9,6 +9,7 @@
  * @details	
 **/
 
+#include "build.h"
 #include <experimental/source_location>
 
 using Location = std::experimental::source_location;
@@ -18,7 +19,6 @@ enum class Status_type : unsigned char
     BINARY,
     WARNING,
     ERROR,
-    CUSTOM
 }; /* enum: Status_type */
 
 class Status
@@ -27,7 +27,6 @@ class Status
 
 public:
     Status(bool value, const Location & location = Location::current());
-    Status(const char * category, const Location & location = Location::current());
     Status(Status_type type, const char * category = nullptr, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
@@ -69,7 +68,6 @@ Status & Status::details(const char * format, T ... ts)
 
 /* ---------------------------------------------| info |--------------------------------------------- */
 
-#define STRING(x) #x
 #define _l0_class(TYPE, CATEGORY) class CATEGORY : public Status                                       \
 {                                                                                                      \
 public:                                                                                                \
@@ -108,12 +106,29 @@ _l1_class(Status_type::WARNING, Possible, Value_empty);
 
 }; /* namespace: warning::return */
 
+namespace status::warning::performed
+{
+
+_l1_class(Status_type::WARNING, Performed, Truncation);
+_l1_class(Status_type::WARNING, Performed, Narrowing);
+_l1_class(Status_type::WARNING, Performed, Reorder);
+_l1_class(Status_type::WARNING, Performed, Aliasing);
+
+}; /* namespace: warning::return */
+
+namespace status::warning::memory
+{
+
+_l1_class(Status_type::WARNING, Memory, Low);
+
+}; /* namespace: status::warning::memory */
+
+
 namespace status::error::memory
 {
 
 _l1_class(Status_type::ERROR, Memory, Access_violation);
 _l1_class(Status_type::ERROR, Memory, Alignment_violation);
-_l1_class(Status_type::ERROR, Memory, Low);
 _l1_class(Status_type::ERROR, Memory, Not_enought);
 _l1_class(Status_type::ERROR, Memory, Leak);
 _l1_class(Status_type::ERROR, Memory, Corruption);

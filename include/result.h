@@ -16,7 +16,6 @@ class alignas(4) Result
 {
 public:
     Result(bool value);
-    Result(const char * category);
     Result(const Status & status);
 
     Result();
@@ -36,11 +35,7 @@ Result<T>::Result(bool value) : status(value)
 {
 
 }
-template<typename T> 
-Result<T>::Result(const char * category) : status(category)
-{
 
-}
 template<typename T> 
 Result<T>::Result(const Status & status) : status(status)
 {
