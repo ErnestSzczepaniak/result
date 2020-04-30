@@ -28,6 +28,7 @@ public:
 
     [[gnu::aligned(4)]] Status status;
     [[gnu::aligned(4)]] T value;
+    
 }; /* class: Result */
 
 template<typename T> 

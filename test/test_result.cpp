@@ -11,9 +11,8 @@ Result<Test> s()
 
     return "Pizdeczka";
     
-    return status::Failure();
-    return warning::value::Empty();
-    return error::argument::Address_empty();      
+    return status::binary::Failure();
+    return status::warning::possible::Data_loss();
 }
 
 TEST_CASE("rw")

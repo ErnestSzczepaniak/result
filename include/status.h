@@ -15,10 +15,10 @@ using Location = std::experimental::source_location;
 
 enum class Status_type : unsigned char 
 {
-    STATUS,
-    CUSTOM,
+    BINARY,
     WARNING,
-    ERROR
+    ERROR,
+    CUSTOM
 }; /* enum: Status_type */
 
 class Status
@@ -48,9 +48,11 @@ public:
 
 private:
     Status_type _type;
+
     const char * _category;
     const char * _brief;
     char _details[size_details];
+
     const char * _file;
     const char * _function;
     int _line;
@@ -89,24 +91,24 @@ public:                                                                         
 
 /* ---------------------------------------------| info |--------------------------------------------- */
 
-namespace status
+namespace status::binary
 {
 
-_l0_class(Status_type::STATUS, Success);
-_l0_class(Status_type::STATUS, Failure);
+_l0_class(Status_type::BINARY, Success);
+_l0_class(Status_type::BINARY, Failure);
 
 }; /* namespace: status */
 
-
-namespace warning::value
+namespace status::warning::possible
 {
 
-_l1_class(Status_type::WARNING, Value, Empty);
+_l1_class(Status_type::WARNING, Possible, Data_corruption);
+_l1_class(Status_type::WARNING, Possible, Data_loss);
+_l1_class(Status_type::WARNING, Possible, Value_empty);
 
 }; /* namespace: warning::return */
 
-
-namespace error::memory
+namespace status::error::memory
 {
 
 _l1_class(Status_type::ERROR, Memory, Access_violation);
@@ -119,7 +121,7 @@ _l1_class(Status_type::ERROR, Memory, Overflow);
 
 }; /* namespace: status::memory */
 
-namespace error::driver
+namespace status::error::driver
 {
 
 _l1_class(Status_type::ERROR, Driver, Open);
@@ -137,7 +139,7 @@ _l1_class(Status_type::ERROR, Driver, Hardware_fault);
 
 }; /* namespace: error::driver */
 
-namespace error::argument
+namespace status::error::argument
 {
 
 _l1_class(Status_type::ERROR, Argument, Size_mismatch);
@@ -148,7 +150,7 @@ _l1_class(Status_type::ERROR, Argument, Out_of_range);
 
 }; /* namespace: error::argument */
 
-namespace error::frame
+namespace status::error::frame
 {
 
 _l1_class(Status_type::ERROR, Frame, Id_mismatch);

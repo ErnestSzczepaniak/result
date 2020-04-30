@@ -4,7 +4,7 @@
 
 Status::Status(bool value, const Location & location)
 :
-_type(Status_type::STATUS),
+_type(Status_type::BINARY),
 _category(value ? "Success" : "Failure"),
 _brief(nullptr),
 _file(location.file_name()),
@@ -45,10 +45,10 @@ Status::~Status()
 
 const char * Status::type() const
 {
-    if (_type == Status_type::STATUS) return "Binary";
-    else if (_type == Status_type::CUSTOM) return "Custom";
+    if (_type == Status_type::BINARY) return "Binary";
     else if (_type == Status_type::WARNING) return "Warning";
     else if (_type == Status_type::ERROR) return "Error";
+    else if (_type == Status_type::CUSTOM) return "Custom";
     return "Unknown";
 }
 
@@ -69,6 +69,15 @@ const char * Status::details() const
 
 const char * Status::file() const
 {
+    auto * ptr = (char *) _file;
+    ptr += strlen(_file);
+
+    for (int i = 0; i < strlen(_file); i++)
+    {
+        if (*ptr == '/') return (ptr + 1);
+        else ptr--;
+    }
+    
     return _file;
 }
 
@@ -84,13 +93,13 @@ int Status::line() const
 
 bool Status::operator==(bool value)
 {
-    if (_type == Status_type::STATUS)
+    if (_type == Status_type::BINARY)
     {
         return value ? (strcmp(_category, "Success") == 0) : (strcmp(_category, "Success") != 0);
     }
     else if (_type == Status_type::CUSTOM) return !value;
     else if (_type == Status_type::WARNING) return value;
-    else return !value;  
+    else return !value;
 }
 
 bool Status::operator==(const Status & other) const
