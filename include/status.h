@@ -27,7 +27,7 @@ class Status
 
 public:
     Status(bool value, const Location & location = Location::current());
-    Status(Status_type type, const char * category = nullptr, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
+    Status(Status_type type, const char * category, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
     const char * type() const;

@@ -6,7 +6,7 @@ Status::Status(bool value, const Location & location)
 :
 _type(Status_type::BINARY),
 _category(value ? "Success" : "Failure"),
-_brief(nullptr),
+_brief("Not provided"),
 _file(location.file_name()),
 _function(location.function_name()),
 _line(location.line())
@@ -18,12 +18,13 @@ Status::Status(Status_type type, const char * category, const char * brief, cons
 :
 _type(type),
 _category(category),
-_brief(brief),
+_brief(brief ? brief : "Not provided"),
 _file(location.file_name()),
 _function(location.function_name()),
 _line(location.line())
 {
     if (details) snprintf(_details, size_details, "%s", details);
+    else snprintf(_details, size_details, "%s", "Not provided");
 }
 
 Status::~Status()
@@ -36,17 +37,17 @@ const char * Status::type() const
     if (_type == Status_type::BINARY) return "Binary";
     else if (_type == Status_type::WARNING) return "Warning";
     else if (_type == Status_type::ERROR) return "Error";
-    return "Unknown";
+    return "Not provided";
 }
 
 const char * Status::category() const
 {
-    return _category ? _category : "Not provided";
+    return _category;
 }
 
 const char * Status::brief() const
 {
-    return _brief ? _brief : "Not provided";
+    return _brief;
 }
 
 const char * Status::details() const

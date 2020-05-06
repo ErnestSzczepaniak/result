@@ -10,7 +10,7 @@ Result<Test> s()
 {
 
     //return status::binary::Failure();
-    return status::warning::possible::Data_loss();
+    return status::warning::possible::Data_loss().details("%d", 12);
 }
 
 TEST_CASE("rw")
