@@ -9,7 +9,6 @@
  * @details	
 **/
 
-#include "build.h"
 #include <experimental/source_location>
 
 using Location = std::experimental::source_location;
@@ -26,7 +25,7 @@ class Status
     static constexpr auto size_details = 64;
 
 public:
-    Status(bool value, const Location & location = Location::current());
+    Status(bool value = true, const Location & location = Location::current());
     Status(Status_type type, const char * category, const char * brief = nullptr, const char * details = nullptr, const Location & location = Location::current());
     ~Status();
 
@@ -68,11 +67,14 @@ Status & Status::details(const char * format, T ... ts)
 
 /* ---------------------------------------------| info |--------------------------------------------- */
 
+#define STR_(X) #X
+#define STR(X) STR_(X)
+
 #define _l0_class(TYPE, CATEGORY) class CATEGORY : public Status                                       \
 {                                                                                                      \
 public:                                                                                                \
     CATEGORY(const char * details = nullptr, const Location & location = Location::current())          \
-    : Status(TYPE, STRING(CATEGORY), nullptr, details, location) {}                                    \
+    : Status(TYPE, STR(CATEGORY), nullptr, details, location) {}                                    \
     ~CATEGORY() {}                                                                                     \
 }
 
@@ -83,7 +85,7 @@ public:                                                                         
 {                                                                                                      \
 public:                                                                                                \
     BRIEF(const char * details = nullptr, const Location & location = Location::current())             \
-    : Status(TYPE, STRING(CATEGORY), STRING(BRIEF), details, location) {}                              \
+    : Status(TYPE, STR(CATEGORY), STR(BRIEF), details, location) {}                              \
     ~BRIEF() {}                                                                                        \
 }
 
