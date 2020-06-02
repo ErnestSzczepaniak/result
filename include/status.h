@@ -173,6 +173,7 @@ namespace status::error::frame
 _l1_class(Status_type::ERROR, Frame, Id_mismatch);
 _l1_class(Status_type::ERROR, Frame, Id_unknown);
 _l1_class(Status_type::ERROR, Frame, Length_mismatch);
+_l1_class(Status_type::ERROR, Frame, Size_mismatch);
 _l1_class(Status_type::ERROR, Frame, Crc_mismatch);
 
 }; /* namespace: error::frame */
