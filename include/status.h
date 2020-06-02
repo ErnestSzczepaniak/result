@@ -9,6 +9,7 @@
  * @details	
 **/
 
+#include "stdio.h"
 #include <experimental/source_location>
 
 using Location = std::experimental::source_location;
