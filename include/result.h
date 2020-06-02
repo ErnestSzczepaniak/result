@@ -17,6 +17,7 @@ class alignas(4) Result
 public:
     Result(bool value);
     Result(const Status & status);
+    Result(const Status & status, const T & value);
 
     Result();
     Result(const Result & other);
@@ -38,6 +39,12 @@ Result<T>::Result(bool value) : status(value)
 
 template<typename T> 
 Result<T>::Result(const Status & status) : status(status)
+{
+
+}
+
+template<typename T> 
+Result<T>::Result(const Status & status, const T & value) : status(status), value(value)
 {
 
 }
