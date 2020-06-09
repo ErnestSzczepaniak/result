@@ -157,6 +157,15 @@ _l1_class(Status_type::ERROR, Driver, Hardware_fault);
 
 }; /* namespace: error::driver */
 
+namespace status::error::internal
+{
+
+_l1_class(Status_type::ERROR, Internal, Timeout);
+_l1_class(Status_type::ERROR, Internal, Failure);
+
+}; /* namespace: status::error::internal */
+
+
 namespace status::error::argument
 {
 
