@@ -153,6 +153,7 @@ _l1_class(Status_type::ERROR, Driver, Bad_configuration);
 _l1_class(Status_type::ERROR, Driver, Restart_needed);
 _l1_class(Status_type::ERROR, Driver, Not_present);
 _l1_class(Status_type::ERROR, Driver, Not_responding);
+_l1_class(Status_type::ERROR, Driver, Not_ready);
 _l1_class(Status_type::ERROR, Driver, Hardware_fault);
 
 }; /* namespace: error::driver */
@@ -169,6 +170,7 @@ _l1_class(Status_type::ERROR, Internal, Failure);
 namespace status::error::argument
 {
 
+_l1_class(Status_type::ERROR, Argument, Invalid);
 _l1_class(Status_type::ERROR, Argument, Size_mismatch);
 _l1_class(Status_type::ERROR, Argument, Type_mismatch);
 _l1_class(Status_type::ERROR, Argument, Address_unaligned);
